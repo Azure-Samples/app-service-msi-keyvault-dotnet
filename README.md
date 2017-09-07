@@ -5,9 +5,11 @@ To run and deploy this sample, you need the following:
 3. [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest) (To run the application on your local development machine)
 
 ## Step 1: Create an App Service with a Managed Service Identity, a Key Vault, and grant the App Service access to the Key Vault. 
-[Deploy to Azure](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fazsamples.blob.core.windows.net%2Ftemplates%2Fazuredeploy.json)
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fazsamples.blob.core.windows.net%2Ftemplates%2Fazuredeploy.json" target="_blank">
+    <img src="http://azuredeploy.net/deploybutton.png"/>
+</a>
 
-Use the "Deploy to Azure" link to deploy an ARM template to create these resources. The ARM template also grants the App Service access to fetch secrets from the Key Vault.
+Use the "Deploy to Azure" button to deploy an ARM template to create these resources. In addition to creating an App Service and Key Vault, the ARM template also grants the App Service access to fetch secrets from the Key Vault.
 
 Review the resources created using the Azure portal. You should see an App Service and a Key Vault. View the access policies of the Key Vault to see that the App Service has access to it. 
 
