@@ -121,6 +121,7 @@
             "name": "[concat(parameters('keyVaultName'), '/', 'secret')]",
             "apiVersion": "2015-06-01",
           "properties": {
+            "value": "[parameters('keyVaultSecret')]"
           },
             "dependsOn": [
                 "[concat('Microsoft.KeyVault/vaults/', parameters('keyVaultName'))]"
