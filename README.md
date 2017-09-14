@@ -6,7 +6,8 @@ The sample [here](https://docs.microsoft.com/en-us/azure/key-vault/key-vault-use
 2. The Azure AD application credentials expire, and so need to be renewed, else can lead to application downtime.
 
 With [Managed Service Identity (MSI)](https://docs.microsoft.com/en-us/azure/app-service/app-service-managed-service-identity), both these problems are solved. This sample shows how a Web App can authenticate to Azure Key Vault without the need to explicitly create an Azure AD application or manage its credentials. 
-* Here's another sample that shows how to deploy an ARM template from an Azure VM with a Managed Service Identity (MSI) - [https://github.com/Azure-Samples/windowsvm-msi-arm-dotnet](https://github.com/Azure-Samples/windowsvm-msi-arm-dotnet)
+
+>Here's another sample that shows how to deploy an ARM template from an Azure VM with a Managed Service Identity (MSI) - [https://github.com/Azure-Samples/windowsvm-msi-arm-dotnet](https://github.com/Azure-Samples/windowsvm-msi-arm-dotnet)
 
 ## Prerequisites
 To run and deploy this sample, you need the following:
@@ -14,7 +15,7 @@ To run and deploy this sample, you need the following:
 2. [Azure CLI 2.0](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest) to run the application on your local development machine.
 
 ## Step 1: Create an App Service with a Managed Service Identity (MSI)
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fazsamples.blob.core.windows.net%2Ftemplates%2Fazuredeploy.json" target="_blank">
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure-Samples%2Fapp-service-msi-keyvault-dotnet%2Fmaster%2Fazuredeploy.json" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
 
@@ -114,10 +115,8 @@ Check the environment variables MSI_ENDPOINT and MSI_SECRET exist using [Kudu de
 The principal used does not have access to the Key Vault. The principal used in show on the web page. Grant that user (in case of developer context) or application "Get secret" access to the Key Vault. 
 
 ## Running the application using a service principal in local development environment
-```
-Note: It is recommended to use your developer context for local development, since you do not need to create or share a service principal for that. 
-If that does not work for you, you can use a service principal, but do not check in the certificate or secret in source repos, and share them securely.
-```
+>Note: It is recommended to use your developer context for local development, since you do not need to create or share a service principal for that. If that does not work for you, you can use a service principal, but do not check in the certificate or secret in source repos, and share them securely.
+
 
 To run the application using a service principal in the local development environment, follow these steps
 
