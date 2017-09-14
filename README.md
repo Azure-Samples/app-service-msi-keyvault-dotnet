@@ -1,3 +1,4 @@
+
 ## Background
 For Service-to-Azure-Service authentication, where the Azure service supports Azure AD based authentication, the current approach involves creating an Azure AD application and associated credential, and using that credential to get a token. 
 
@@ -22,6 +23,7 @@ To run and deploy this sample, you need the following:
 Use the "Deploy to Azure" button to deploy an ARM template to create the following resources:
 1. App Service with MSI.
 2. Key Vault with a secret, and an access policy that grants the App Service access to **Get Secrets**.
+NOTE: when filling out the template you will see a textbox labelled 'Key Vault Secret' in the settings section. Enter a secret value here. Then a Key Vault secret with the name 'secret' and value from what you entered will be created in the Key Vault.
 
 Review the resources created using the Azure portal. You should see an App Service and a Key Vault. View the access policies of the Key Vault to see that the App Service has access to it. 
 
