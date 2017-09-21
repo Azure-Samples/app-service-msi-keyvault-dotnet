@@ -102,6 +102,8 @@ Run **az account get-access-token** to see if Azure CLI shows a token for you. I
 2. AzureServiceTokenProvider cannot find the path for Azure CLI.
 AzureServiceTokenProvider finds Azure CLI at its default install locations. If it cannot find Azure CLI, please set environment variable **AzureCLIPath** to the Azure CLI installation folder. AzureServiceTokenProvider will add the environment variable to the Path environment variable.
 
+3. Unauthorized access response when trying to access/set keys when you have multiple Azure subscriptions. Make sure you set the subscription with Key Vault to be the default using the command: **az account set --subscription <subscription-id>**. If no output is seen, then it succeeded. Verify the right account is no the default using **az account list**.
+
 ### Common issues when deployed to Azure App Service:
 
 1. MSI is not setup on the App Service. 
