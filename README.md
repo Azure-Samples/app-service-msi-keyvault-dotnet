@@ -15,6 +15,8 @@ With [Managed Service Identity (MSI)](https://docs.microsoft.com/en-us/azure/app
 
 >Here's another sample that shows how to programatically deploy an ARM template from a .NET Console application running on an Azure VM with a Managed Service Identity (MSI) - [https://github.com/Azure-Samples/windowsvm-msi-arm-dotnet](https://github.com/Azure-Samples/windowsvm-msi-arm-dotnet)
 
+>Here's another .NET Core sample that shows how to programmatically call Azure Services from an Azure Linux VM with a Managed Service Identity (MSI). - [https://github.com/Azure-Samples/linuxvm-msi-keyvault-arm-dotnet](https://github.com/Azure-Samples/linuxvm-msi-keyvault-arm-dotnet)
+
 ## Prerequisites
 To run and deploy this sample, you need the following:
 1. An Azure subscription to create an App Service and a Key Vault. 
@@ -39,13 +41,13 @@ Using the Azure Portal, go to the Key Vault's access policies, and grant yoursel
 2.	Select "Overview", and click on Access policies
 3.	Click on "Add New", select "Secret Management" from the dropdown for "Configure from template"
 4.	Click on "Select Principal", add your account 
-5.	Save the Access Policies
+5.	Click on "OK" to add the new Access Policy, then click "Save" to save the Access Policies
 
 ## Step 3: Clone the repo 
 Clone the repo to your development machine. 
 
 The project has two relevant Nuget packages:
-1. Microsoft.Azure.Services.AppAuthentication (preview) - makes it easy to fetch access tokens for Service-to-Azure-Service authentication scenarios. 
+1. Microsoft.Azure.Services.AppAuthentication - makes it easy to fetch access tokens for Service-to-Azure-Service authentication scenarios. 
 2. Microsoft.Azure.KeyVault - contains methods for interacting with Key Vault. 
 
 The relevant code is in WebAppKeyVault/WebAppKeyVault/Controllers/HomeController.cs file. The **AzureServiceTokenProvider** class (which is part of Microsoft.Azure.Services.AppAuthentication) tries the following methods to get an access token:-
@@ -58,13 +60,23 @@ public async System.Threading.Tasks.Task<ActionResult> Index()
 {
     AzureServiceTokenProvider azureServiceTokenProvider = new AzureServiceTokenProvider();
 
-    var keyVaultClient = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));
+    try
+    {
+        var keyVaultClient = new KeyVaultClient(
+            new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));
 
-    var secret = await keyVaultClient.GetSecretAsync("https://keyvaultname.vault.azure.net/secrets/secret").ConfigureAwait(false);
+        var secret = await keyVaultClient.GetSecretAsync("https://keyvaultname.vault.azure.net/secrets/secret")
+            .ConfigureAwait(false);
 
-    ViewBag.Secret = secret.Value;
+        ViewBag.Secret = $"Secret: {secret.Value}";
+        
+    }
+    catch (Exception exp)
+    {
+        ViewBag.Error = $"Something went wrong: {exp.Message}";
+    }
 
-    ViewBag.Principal = azureServiceTokenProvider.PrincipalUsed;
+    ViewBag.Principal = azureServiceTokenProvider.PrincipalUsed != null ? $"Principal Used: {azureServiceTokenProvider.PrincipalUsed}" : string.Empty;
 
     return View();
 }
