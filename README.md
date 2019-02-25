@@ -150,3 +150,13 @@ Check the environment variables MSI_ENDPOINT and MSI_SECRET exist using [Kudu de
 
 The principal used does not have access to the Key Vault. The principal used in show on the web page. Grant that user (in case of developer context) or application "Get secret" access to the Key Vault. 
 
+## Running the application using a user-assigned managed identity
+>Note: This functionality requires AppAuthentication version 1.2.0-preview2 or greater
+
+To run the application using a user-assigned managed identity, follow these steps:
+
+1. Create a user-assigned managed identity. Follow steps [here](https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/how-to-manage-ua-identity-portal#create-a-user-assigned-managed-identity) to create a user-assigned managed identity.
+2. After creating the managed identity, record the Client ID of the newly created managed identity.
+3. Assign the user-assigned managed identity to your App Service. Follow steps [here](https://docs.microsoft.com/en-us/azure/app-service/overview-managed-identity#adding-a-user-assigned-identity-preview) to assign the identity to the App Service.
+4. While in your Azure VM, set an environment variable named **AzureServicesAuthConnectionString** to **RunAs=App;AppId=_AppId_**. You need to replace AppId with the value of the Client ID you recorded in step #2.
+5. Run the application in your Azure VM. No code change is required. AzureServiceTokenProvider will use this environment variable and use the user-assigned managed identity to authenticate to Azure AD.
