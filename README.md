@@ -9,6 +9,7 @@ products:
   - azure-app-service
   - azure-key-vault
 description: "This sample shows how to use Azure KeyVault from App Service with Managed Service Identity (MSI)."
+urlFragment: keyvault-msi-appservice-sample
 ---
 
 # Use Key Vault from App Service with Managed Service Identity
