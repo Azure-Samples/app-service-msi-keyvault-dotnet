@@ -1,7 +1,14 @@
 ---
-services: app-service, key-vault
-platforms: dotnet
-author: varunsh-msft
+topic: sample
+languages:
+  - csharp
+products:
+  - azure
+  - dotnet
+  - aspnet
+  - azure-app-service
+  - azure-key-vault
+description: "This sample shows how to use Azure KeyVault from App Service with Managed Service Identity (MSI)."
 ---
 
 # Use Key Vault from App Service with Managed Service Identity
