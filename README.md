@@ -135,36 +135,4 @@ Service principal using a password:
 
 ## Troubleshooting
 
-### Common issues during local development:
-
-1. Azure CLI is not installed, or you are not logged in, or you do not have the latest version. 
-Run **az account get-access-token** to see if Azure CLI shows a token for you. If it says no such program found, please install Azure CLI 2.0. If you have installed it, you may be prompted to login. 
-
-2. AzureServiceTokenProvider cannot find the path for Azure CLI.
-AzureServiceTokenProvider finds Azure CLI at its default install locations. If it cannot find Azure CLI, please set environment variable **AzureCLIPath** to the Azure CLI installation folder. AzureServiceTokenProvider will add the environment variable to the Path environment variable.
-
-3. You are logged into Azure CLI using multiple accounts, or the same account has access to subscriptions in multiple tenants. You get an Access Denied error when trying to fetch secret from Key Vault during local development. 
-Using Azure CLI, set the default subscription to one which has the account you want use, and is in the same tenant as your Key Vault: **az account set --subscription [subscription-id]**. If no output is seen, then it succeeded. Verify the right account is now the default using **az account list**.
-
-### Common issues when deployed to Azure App Service:
-
-1. MSI is not setup on the App Service. 
-
-Check the environment variables MSI_ENDPOINT and MSI_SECRET exist using [Kudu debug console](https://azure.microsoft.com/en-us/resources/videos/super-secret-kudu-debug-console-for-azure-web-sites/). If these environment variables do not exist, MSI is not enabled on the App Service. 
-
-### Common issues across environments:
-
-1. Access denied
-
-The principal used does not have access to the Key Vault. The principal used in show on the web page. Grant that user (in case of developer context) or application "Get secret" access to the Key Vault. 
-
-## Running the application using a user-assigned managed identity
->Note: This functionality requires AppAuthentication version 1.2.0-preview2 or greater
-
-To run the application using a user-assigned managed identity, follow these steps:
-
-1. Create a user-assigned managed identity. Follow steps [here](https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/how-to-manage-ua-identity-portal#create-a-user-assigned-managed-identity) to create a user-assigned managed identity.
-2. After creating the managed identity, record the Client ID of the newly created managed identity.
-3. Assign the user-assigned managed identity to your App Service. Follow steps [here](https://docs.microsoft.com/en-us/azure/app-service/overview-managed-identity#adding-a-user-assigned-identity-preview) to assign the identity to the App Service.
-4. While in your Azure VM, set an environment variable named **AzureServicesAuthConnectionString** to **RunAs=App;AppId=_AppId_**. You need to replace AppId with the value of the Client ID you recorded in step #2.
-5. Run the application in your Azure VM. No code change is required. AzureServiceTokenProvider will use this environment variable and use the user-assigned managed identity to authenticate to Azure AD.
+Please see the [troubleshooting section](https://docs.microsoft.com/en-us/azure/key-vault/service-to-service-authentication#appauthentication-troubleshooting) of the AppAuthentication library documentation for troubleshooting of common issues.
