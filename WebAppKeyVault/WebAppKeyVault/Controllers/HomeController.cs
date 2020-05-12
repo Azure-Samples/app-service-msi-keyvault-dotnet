@@ -1,7 +1,8 @@
-﻿using System;
-using System.Web.Mvc;
-using Azure.Security.KeyVault.Secrets;
+﻿using Azure;
 using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
+using System;
+using System.Web.Mvc;
 
 namespace WebAppKeyVault.Controllers
 {
@@ -14,7 +15,7 @@ namespace WebAppKeyVault.Controllers
                 string uri = Environment.GetEnvironmentVariable("KEY_VAULT_URI");
                 var client = new SecretClient(new Uri(uri), new DefaultAzureCredential());
 
-                Azure.Response<KeyVaultSecret> secret = await client.GetSecretAsync("secret");
+                Response<KeyVaultSecret> secret = await client.GetSecretAsync("secret");
 
                 ViewBag.Secret = $"Secret: {secret.Value}";
             }
