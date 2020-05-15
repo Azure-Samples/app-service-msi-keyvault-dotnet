@@ -2,13 +2,14 @@
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
 using System;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace WebAppKeyVault.Controllers
 {
     public class HomeController : Controller
     {
-        public async System.Threading.Tasks.Task<ActionResult> Index()
+        public async Task<ActionResult> Index()
         {
             try
             {
