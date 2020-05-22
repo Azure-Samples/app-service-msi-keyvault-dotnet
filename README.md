@@ -68,8 +68,8 @@ git clone https://github.com/Azure-Samples/app-service-msi-keyvault-dotnet.git
 ```
 
 ### Run the application on your local development machine
-This solution requires a key vault url be stored in an environment variable on the machine running the sample.
->Note: Run the application on your local development machine required your [register an application with the Microsoft identity platform], and grant the access policy (Follow Step1: Set access policy) to the Key Vault.
+This solution requires a key vault url be stored in an environment variable on the machine running the sample, and require [register an application with the Microsoft identity platform],
+then grant the access policy by `Step1: Set access policy`.
 
 Linux
 
