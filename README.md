@@ -99,8 +99,12 @@ The AppId of the MSI will be displayed.
 The web app was successfully able to get a secret at runtime from Azure Key Vault using your developer account during development, and using MSI when deployed to Azure, without any code change between local development environment and Azure. 
 As a result, you did not have to explicitly handle a service principal credential to authenticate to Azure AD to get a token to call Key Vault. You do not have to worry about renewing the service principal credential either, since MSI takes care of that.  
 
-## Troubleshooting
+## How to use AzureCliCredential
+1. You have [Azure CLI 2.0] installed. If you have an earlier version, please upgrade. 
+2. You can login using **az login** command in Windows Command Prompt or PowerShell.
+3. Sign in with your account credentials in the browser.
 
+## Troubleshooting
 Please see the [troubleshooting section] of the AppAuthentication library documentation for troubleshooting of common issues.
 
 <!-- LINKS -->
