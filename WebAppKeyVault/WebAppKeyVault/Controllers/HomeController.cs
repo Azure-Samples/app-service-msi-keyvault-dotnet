@@ -14,7 +14,7 @@ namespace WebAppKeyVault.Controllers
             try
             {
                 string uri = Environment.GetEnvironmentVariable("KEY_VAULT_URI");
-                var client = new SecretClient(new Uri(uri), new DefaultAzureCredential());
+                SecretClient client = new SecretClient(new Uri(uri), new DefaultAzureCredential());
 
                 Response<KeyVaultSecret> secret = await client.GetSecretAsync("secret");
 

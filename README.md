@@ -17,7 +17,7 @@ urlFragment: keyvault-msi-appservice-sample
 ## Background
 For Service-to-Azure-Service authentication, the approach so far involved creating an Azure AD application and associated credential, and using that credential to get a token. The sample [here] shows how this approach is used to authenticate to Azure Key Vault from a Web App. While this approach works well, there are two shortcomings:
 1. The Azure AD application credentials are typically hard coded in source code. Developers tend to push the code to source repositories as-is, which leads to credentials in source.
-2. The Azure AD application credentials expire, and so need to be renewed, else can lead to application downtime.
+2. The Azure AD application credentials expire, need to be renewed, otherwise it will lead to application downtime.
 
 With [Managed Identity], both problems are solved. This sample shows how a Web App can authenticate to Azure Key Vault without the need to explicitly create an Azure AD application or manage its credentials. 
 
@@ -47,7 +47,7 @@ Review the resources created using the Azure portal. You should see an App Servi
 
 ### Grant yourself data plane access to the Key Vault
 
-Step 1: Set access policy.
+#### Step 1: Set access policy.
 
 *  Go to the [Azure Portal] and log in using your Azure account
 *  Search for your Key Vault in **Search Resources dialog box**
@@ -56,9 +56,9 @@ Step 1: Set access policy.
 *  Click on **Select Principal**, add your account and pre created **system-assigned identity**
 *  Click on "OK" to add the new Access Policy, then click "Save" to save the Access Policy
 
-Step 2: Copy and save key vault url.
+#### Step 2: Copy and save Key Vault Url.
 
-Select **Overview** > **DNS Name**, copy the associated **key vault url** to the clipboard, then paste it into a text editor for later use.
+Select **Overview** > **DNS Name**, copy the associated **Key Vault Url** to the clipboard, then paste it into a text editor for later use.
 
 ## Run the application
 Clone the repo to your development machine. 
@@ -68,8 +68,8 @@ git clone https://github.com/Azure-Samples/app-service-msi-keyvault-dotnet.git
 ```
 
 ### Run the application on your local development machine
-This solution requires a key vault url be stored in an environment variable on the machine running the sample, and require [register an application with the Microsoft identity platform],
-then grant the access policy by `Step1: Set access policy`.
+To run the sample, this solution requires a Key Vault Url is stored in an environment variable on the machine , and [register an application with the Microsoft identity platform],
+then grant the access policy by [Step 1: Set access policy].
 
 Linux
 
@@ -90,7 +90,7 @@ Step 1: Set environment variable in app service.
 
 *  Search for your app service in **Search Resources dialog box**
 *  Select **Setting** > **Configuration** > **New application setting**
-*  Set the name to **KEY_VAULT_URI** and value with your **key vault url**  
+*  Set the name to **KEY_VAULT_URI** and value with your **Key Vault Url**  
 
 After you deploy it, browse to the web app. You should see the secret on the web page, and this time the Principal Used will show "App", since it ran under the context of the App Service. 
 The AppId of the MSI will be displayed. 
@@ -118,3 +118,4 @@ Please see the [troubleshooting section] of the AppAuthentication library docume
 [register an application with the Microsoft identity platform]: https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app
 [Deploy your app to Azure App Service]: https://docs.microsoft.com/en-us/azure/app-service-web/web-sites-deploy
 [troubleshooting section]：https://docs.microsoft.com/en-us/azure/key-vault/service-to-service-authentication#appauthentication-troubleshooting
+[Step1: Set access policy]: https://github.com/wantedfast/app-service-msi-keyvault-dotnet/tree/Dev-updateSDK#Step-1:-Set-access-policy
