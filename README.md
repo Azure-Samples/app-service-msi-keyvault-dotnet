@@ -8,18 +8,18 @@ products:
   - aspnet
   - azure-app-service
   - azure-key-vault
-description: "This sample shows how to use Azure KeyVault from App Service with Managed Service Identity (MSI)."
+description: "This sample shows how to use Azure KeyVault from App Service with Azure Managed Identity."
 urlFragment: keyvault-msi-appservice-sample
 ---
 
-# Use Key Vault from App Service with Managed Identity
+# Use Key Vault from App Service with Azure Managed Identity
 
 ## Background
 For Service-to-Azure-Service authentication, the approach so far involved creating an Azure AD application and associated credential, and using that credential to get a token. The sample [here] shows how this approach is used to authenticate to Azure Key Vault from a Web App. While this approach works well, there are two shortcomings:
 1. The Azure AD application credentials are typically hard coded in source code. Developers tend to push the code to source repositories as-is, which leads to credentials in source.
 2. The Azure AD application credentials expire, need to be renewed, otherwise it will lead to application downtime.
 
-With [Managed Identity], both problems are solved. This sample shows how a Web App can authenticate to Azure Key Vault without the need to explicitly create an Azure AD application or manage its credentials. 
+With [Azure Managed Identity], both problems are solved. This sample shows how a Web App can authenticate to Azure Key Vault without the need to explicitly create an Azure AD application or manage its credentials. 
 
 >Here's another [sample] that shows how to programmatically deploy an ARM template from a .NET Console application running on an Azure VM with a Managed Identity.
 
@@ -33,13 +33,13 @@ To complete this tutorial:
 
 If you don't have an Azure subscription, create a [free account] before you begin.
 
-### Create an App Service with a Managed Identity
+### Create an App Service with an Azure Managed Identity
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure-Samples%2Fapp-service-msi-keyvault-dotnet%2Fmaster%2Fazuredeploy.json" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
 
 Use the "Deploy to Azure" button to deploy an ARM template to create the following resources:
-1. App Service with Managed Identity.
+1. App Service with [Azure Managed Identity].
 2. Key Vault with a secret, and an access policy that grants the App Service access to **Get Secrets**.
 >Note: When filling out the template you will see a textbox labelled 'Key Vault Secret'. Enter a secret value there. A secret with the name 'secret' and value from what you entered will be created in the Key Vault.
 
@@ -92,30 +92,49 @@ Step 1: Set environment variable in app service.
 *  Select **Setting** > **Configuration** > **New application setting**
 *  Set the name to **KEY_VAULT_URI** and value with your **Key Vault Url**  
 
-After you deploy it, browse to the web app. You should see the secret on the web page, and this time the Principal Used will show "App", since it ran under the context of the App Service. 
-The AppId of the MSI will be displayed. 
-
-## Summary
-The web app was successfully able to get a secret at runtime from Azure Key Vault using your developer account during development, and using MSI when deployed to Azure, without any code change between local development environment and Azure. 
-As a result, you did not have to explicitly handle a service principal credential to authenticate to Azure AD to get a token to call Key Vault. You do not have to worry about renewing the service principal credential either, since MSI takes care of that.  
+After you deploy it, browse to the web app. You should see the secret on the web page.
 
 ## How to use AzureCliCredential
-1. Install Azure CLI 2.0, You can find how to install in [Azure CLI 2.0]. If you have an earlier version, please upgrade. 
-2. Once Azure CLI 2.0 installed. You can login using **az login** command in Windows Command Prompt or PowerShell.
-3. Sign in with your account credentials in the browser.
+There are 2 approaches to use AzureCliCredential. First way is create AzureCliCredential directly, the other way is use AzureCliCredential which is chained in DefaultAzureCredential.
+1. Create AzureCliCredential directly.
+`
+using Azure.Identity;
+
+var credential = new AzureCliCredential();
+`
+2. Use AzureCliCredential which is chained in DefaultAzureCredential.
+`
+using Azure.Identity;
+
+var defaultAzureCredentialOptions = new DefaultAzureCredentialOptions();
+defaultAzureCredentialOptions.ExcludeAzureCliCredential = false;
+defaultAzureCredentialOptions.ExcludeEnvironmentCredential = true;
+defaultAzureCredentialOptions.ExcludeInteractiveBrowserCredential = true;
+defaultAzureCredentialOptions.ExcludeManagedIdentityCredential = true;
+defaultAzureCredentialOptions.ExcludeSharedTokenCacheCredential = true;
+defaultAzureCredentialOptions.ExcludeVisualStudioCodeCredential = true;
+defaultAzureCredentialOptions.ExcludeVisualStudioCredential = true;
+            
+// Actually only include AzureCliCredential in DefaultAzureCredentialChain.
+var credential = new DefaultAzureCredential(defaultAzureCredentialOptions);
+`
+
+## Summary
+The web app was successfully able to get a secret at runtime from Azure Key Vault using your developer account during development, and using Azure Managed Identities when deployed to Azure, without any code change between local development environment and Azure. 
+As a result, you did not have to explicitly handle a service principal credential to authenticate to Azure AD to get a token to call Key Vault. You do not have to worry about renewing the service principal credential either, since Azure Managed Identities takes care of that.
 
 ## Troubleshooting
 Please see the [troubleshooting section] of the AppAuthentication library documentation for troubleshooting of common issues.
 
 <!-- LINKS -->
 [here]: https://docs.microsoft.com/en-us/azure/key-vault/key-vault-use-from-web-application
-[Managed Identity]: https://docs.microsoft.com/en-us/azure/app-service/app-service-managed-service-identity
+[Azure Managed Identity]: https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/
 [sample]: https://github.com/Azure-Samples/windowsvm-msi-arm-dotnet
 [.NET Core sample]: https://github.com/Azure-Samples/linuxvm-msi-keyvault-arm-dotnet
 [Azure CLI 2.0]: https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest
 [free account]: https://azure.microsoft.com/free/?WT.mc_id=A261C142F
 [Azure Portal]: https://portal.azure.com
+[Step 1: Set access policy]: https://github.com/wantedfast/app-service-msi-keyvault-dotnet/tree/Dev-updateSDK#step-1-set-access-policy
 [register an application with the Microsoft identity platform]: https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app
 [Deploy your app to Azure App Service]: https://docs.microsoft.com/en-us/azure/app-service-web/web-sites-deploy
 [troubleshooting section]：https://docs.microsoft.com/en-us/azure/key-vault/service-to-service-authentication#appauthentication-troubleshooting
-[Step 1: Set access policy]: https://github.com/wantedfast/app-service-msi-keyvault-dotnet/tree/Dev-updateSDK#step-1-set-access-policy
