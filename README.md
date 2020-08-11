@@ -115,7 +115,7 @@ defaultAzureCredentialOptions.ExcludeSharedTokenCacheCredential = true;
 defaultAzureCredentialOptions.ExcludeVisualStudioCodeCredential = true;
 defaultAzureCredentialOptions.ExcludeVisualStudioCredential = true;
             
-// Actually only include AzureCliCredential in DefaultAzureCredentialChain.
+// Actually only include AzureCliCredential in DefaultAzureCredential.
 var credential = new DefaultAzureCredential(defaultAzureCredentialOptions);
 ```
 
