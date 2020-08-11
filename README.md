@@ -97,13 +97,13 @@ After you deploy it, browse to the web app. You should see the secret on the web
 ## How to use AzureCliCredential
 There are 2 approaches to use AzureCliCredential. First way is create AzureCliCredential directly, the other way is use AzureCliCredential which is chained in DefaultAzureCredential.
 1. Create AzureCliCredential directly.
-`
+```
 using Azure.Identity;
 
 var credential = new AzureCliCredential();
-`
+```
 2. Use AzureCliCredential which is chained in DefaultAzureCredential.
-`
+```
 using Azure.Identity;
 
 var defaultAzureCredentialOptions = new DefaultAzureCredentialOptions();
@@ -117,7 +117,7 @@ defaultAzureCredentialOptions.ExcludeVisualStudioCredential = true;
             
 // Actually only include AzureCliCredential in DefaultAzureCredentialChain.
 var credential = new DefaultAzureCredential(defaultAzureCredentialOptions);
-`
+```
 
 ## Summary
 The web app was successfully able to get a secret at runtime from Azure Key Vault using your developer account during development, and using Azure Managed Identities when deployed to Azure, without any code change between local development environment and Azure. 
