@@ -17,7 +17,7 @@ urlFragment: keyvault-msi-appservice-sample
 ## Background
 For Service-to-Azure-Service authentication, the approach so far involved creating an Azure AD application and associated credential, and using that credential to get a token. The sample [here] shows how this approach is used to authenticate to Azure Key Vault from a Web App. While this approach works well, there are two shortcomings:
 1. The Azure AD application credentials are typically hard coded in source code. Developers tend to push the code to source repositories as-is, which leads to credentials in source.
-2. The Azure AD application credentials expire, need to be renewed, otherwise it will lead to application downtime.
+2. The Azure AD application credentials expire, need to be renewed; otherwise, it will lead to application downtime.
 
 With [Azure Managed Identity], both problems are solved. This sample shows how a Web App can authenticate to Azure Key Vault without the need to explicitly create an Azure AD application or manage its credentials. 
 
@@ -68,16 +68,16 @@ git clone https://github.com/Azure-Samples/app-service-msi-keyvault-dotnet.git
 ```
 
 ### Run the application on your local development machine
-To run the sample, this solution requires a Key Vault Url is stored in an environment variable on the machine , and [register an application with the Microsoft identity platform],
+To run the sample, this solution requires that a Key Vault URL is stored in an environment variable on the machine , and [register an application with the Microsoft identity platform],
 then grant the access policy by [Step 1: Set access policy].
 
-Linux
+### Linux
 
 ```bash
 export KEY_VAULT_URI="<YourKeyVaultUrl>"
 ```
 
-Windows
+### Windows
 
 ```cmd
 setx KEY_VAULT_URI "<YourKeyVaultUrl>"
@@ -95,15 +95,15 @@ Step 1: Set environment variable in app service.
 After you deploy it, browse to the web app. You should see the secret on the web page.
 
 ## How to use AzureCliCredential
-There are 2 approaches to use AzureCliCredential. First way is create AzureCliCredential directly, the other way is use AzureCliCredential which is chained in DefaultAzureCredential.
-1. Create AzureCliCredential directly.
-```
+There are 2 approaches to use `AzureCliCredential`. First way is create `AzureCliCredential` directly, the other way is use `AzureCliCredential` which is chained in `DefaultAzureCredential`.
+1. Create `AzureCliCredential` directly.
+```C#
 using Azure.Identity;
 
 var credential = new AzureCliCredential();
 ```
-2. Use AzureCliCredential which is chained in DefaultAzureCredential.
-```
+2. Use `AzureCliCredential` which is chained in `DefaultAzureCredential`.
+```C#
 using Azure.Identity;
 
 var defaultAzureCredentialOptions = new DefaultAzureCredentialOptions();
