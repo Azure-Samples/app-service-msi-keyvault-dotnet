@@ -15,7 +15,7 @@ urlFragment: keyvault-msi-appservice-sample
 # Use Key Vault from App Service with Azure Managed Identity
 
 ## Background
-For Service-to-Azure-Service authentication, the approach so far involved creating an Azure AD application and associated credential, and using that credential to get a token. The sample [here] shows how this approach is used to authenticate to Azure Key Vault from a Web App. While this approach works well, there are two shortcomings:
+For Service-to-Azure-Service authentication, the approach so far involved creating an Azure AD application and associated credential, and using that credential to get a token. The [Authentication sample] shows how this approach is used to authenticate to Azure Key Vault from a Web App. While this approach works well, there are two shortcomings:
 1. The Azure AD application credentials are typically hard coded in source code. Developers tend to push the code to source repositories as-is, which leads to credentials in source.
 2. The Azure AD application credentials expire, need to be renewed; otherwise, it will lead to application downtime.
 
@@ -127,7 +127,7 @@ As a result, you did not have to explicitly handle a service principal credentia
 Please see the [troubleshooting section] of the AppAuthentication library documentation for troubleshooting of common issues.
 
 <!-- LINKS -->
-[here]: https://docs.microsoft.com/en-us/azure/key-vault/key-vault-use-from-web-application
+[Authentication sample]: https://docs.microsoft.com/en-us/azure/key-vault/key-vault-use-from-web-application
 [Azure Managed Identity]: https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/
 [sample]: https://github.com/Azure-Samples/windowsvm-msi-arm-dotnet
 [.NET Core sample]: https://github.com/Azure-Samples/linuxvm-msi-keyvault-arm-dotnet
