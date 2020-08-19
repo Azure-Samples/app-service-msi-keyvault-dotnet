@@ -21,9 +21,9 @@ For Service-to-Azure-Service authentication, the approach so far involved creati
 
 With [Azure Managed Identity], both problems are solved. This sample shows how a Web App can authenticate to Azure Key Vault without the need to explicitly create an Azure AD application or manage its credentials. 
 
->Here's another [auto deploy or operate Azure resources on Windows] sample that shows how to programmatically deploy an ARM template from a .NET Console application running on an Azure VM with a Managed Identity.
+>Here's another [Auto deploy or operate Azure resources on Windows] sample that shows how to programmatically deploy an ARM template from a .NET Console application running on an Azure VM with a Managed Identity.
 
->Here's another [how a .NET Core application deployed on an Azure Linux VM] sample that shows how to programmatically call Azure Services from an Azure Linux VM with a Managed Identity.
+>Here's another [How a .NET Core application deployed on an Azure Linux VM] sample that shows how to programmatically call Azure Services from an Azure Linux VM with a Managed Identity.
 
 ## Prerequisites
 
@@ -68,7 +68,7 @@ git clone https://github.com/Azure-Samples/app-service-msi-keyvault-dotnet.git
 ```
 
 ### Run the application on your local development machine
-To run the sample, this solution requires that a Key Vault URL is stored in an environment variable on the machine , and [register an application with the Microsoft identity platform],
+To run the sample, this solution requires that a Key Vault URL is stored in an environment variable on the machine , and [Register an application with the Microsoft identity platform],
 then grant the access policy by [Step 1: Set access policy].
 
 ### Linux
@@ -129,12 +129,12 @@ Please see the [troubleshooting section] of the AppAuthentication library docume
 <!-- LINKS -->
 [KeyVault use from Web Application]: https://docs.microsoft.com/en-us/azure/key-vault/key-vault-use-from-web-application
 [Azure Managed Identity]: https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/
-[auto deploy or operate Azure resources on Windows]: https://github.com/Azure-Samples/windowsvm-msi-arm-dotnet
-[how a .NET Core application deployed on an Azure Linux VM]: https://github.com/Azure-Samples/linuxvm-msi-keyvault-arm-dotnet
+[Auto deploy or operate Azure resources on Windows]: https://github.com/Azure-Samples/windowsvm-msi-arm-dotnet
+[How a .NET Core application deployed on an Azure Linux VM]: https://github.com/Azure-Samples/linuxvm-msi-keyvault-arm-dotnet
 [Install the Azure CLI]: https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest
 [free account]: https://azure.microsoft.com/free/?WT.mc_id=A261C142F
 [Azure Portal]: https://portal.azure.com
 [Step 1: Set access policy]: https://github.com/wantedfast/app-service-msi-keyvault-dotnet/tree/Dev-updateSDK#step-1-set-access-policy
-[register an application with the Microsoft identity platform]: https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app
+[Register an application with the Microsoft identity platform]: https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app
 [Deploy your app to Azure App Service]: https://docs.microsoft.com/en-us/azure/app-service-web/web-sites-deploy
 [troubleshooting section]：https://docs.microsoft.com/en-us/azure/key-vault/service-to-service-authentication#appauthentication-troubleshooting
