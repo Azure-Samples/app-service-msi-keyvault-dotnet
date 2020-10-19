@@ -1,33 +1,29 @@
-﻿using System;
+﻿using Azure;
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
+using System;
+using System.Threading.Tasks;
 using System.Web.Mvc;
-using Microsoft.Azure.KeyVault;
-using Microsoft.Azure.Services.AppAuthentication;
 
 namespace WebAppKeyVault.Controllers
 {
     public class HomeController : Controller
     {
-        public async System.Threading.Tasks.Task<ActionResult> Index()
+        public async Task<ActionResult> Index()
         {
-            AzureServiceTokenProvider azureServiceTokenProvider = new AzureServiceTokenProvider();
-
             try
             {
-                var keyVaultClient = new KeyVaultClient(
-                    new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));
+                string uri = Environment.GetEnvironmentVariable("KEY_VAULT_URI");
+                SecretClient client = new SecretClient(new Uri(uri), new DefaultAzureCredential());
 
-                var secret = await keyVaultClient.GetSecretAsync("https://appmsi5kv.vault.azure.net/secrets/secret")
-                    .ConfigureAwait(false);
+                Response<KeyVaultSecret> secret = await client.GetSecretAsync("secret");
 
                 ViewBag.Secret = $"Secret: {secret.Value}";
-                
             }
             catch (Exception exp)
             {
                 ViewBag.Error = $"Something went wrong: {exp.Message}";
             }
-
-            ViewBag.Principal = azureServiceTokenProvider.PrincipalUsed != null ? $"Principal Used: {azureServiceTokenProvider.PrincipalUsed}" : string.Empty;
 
             return View();
         }
