@@ -35,7 +35,7 @@ If you don't have an Azure subscription, create a [free account] before you begi
 
 ### Create an App Service with an Azure Managed Identity
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure-Samples%2Fapp-service-msi-keyvault-dotnet%2Fmaster%2Fazuredeploy.json" target="_blank">
-    <img src="http://azuredeploy.net/deploybutton.png"/>
+    <img src="https://azuredeploy.net/deploybutton.png"/>
 </a>
 
 Use the "Deploy to Azure" button to deploy an ARM template to create the following resources:
