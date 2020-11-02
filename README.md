@@ -137,4 +137,4 @@ Please see the [troubleshooting section] of the AppAuthentication library docume
 [Step 1: Set access policy]: https://github.com/wantedfast/app-service-msi-keyvault-dotnet/tree/Dev-updateSDK#step-1-set-access-policy
 [Register an application with the Microsoft identity platform]: https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app
 [Deploy your app to Azure App Service]: https://docs.microsoft.com/en-us/azure/app-service-web/web-sites-deploy
-[troubleshooting section]：https://docs.microsoft.com/en-us/azure/key-vault/service-to-service-authentication#appauthentication-troubleshooting
+[troubleshooting section]: https://docs.microsoft.com/en-us/azure/key-vault/service-to-service-authentication#appauthentication-troubleshooting
